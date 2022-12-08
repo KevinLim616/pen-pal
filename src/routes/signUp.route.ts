@@ -1,8 +1,10 @@
 import express, { Request, Response } from "express";
+import signUpLogic from "../controller/signUpController";
 const router = express.Router();
 
 router.get("/", (req: Request, res: Response) => {
-  res.send("This is sign up route.");
+  res.send("sign-up route");
 });
+router.post("/", signUpLogic);
 
 export default router;
