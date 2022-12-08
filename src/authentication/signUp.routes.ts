@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
-import signUpLogic from "../controller/signUpController";
+import { signUpLogic } from "./authController";
+
 const router = express.Router();
 
 router.get("/", (req: Request, res: Response) => {
