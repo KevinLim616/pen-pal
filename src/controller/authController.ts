@@ -23,17 +23,24 @@ export const signUpLogic = async (req: Request, res: Response) => {
 };
 
 export const login = (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (!user) {
-      return res.status(401).json({
-        message: "email or password is not matched.",
+  passport.authenticate(
+    "local",
+    {
+      successRedirect: "/",
+      failureRedirect: "/",
+    },
+    (err, user, info) => {
+      if (!user) {
+        return res.status(401).json({
+          message: "email or password is not matched.",
+        });
+      }
+      req.login(user, (err) => {
+        if (err) throw err;
+        res.status(201).json({
+          user,
+        });
       });
     }
-    req.login(user, (err) => {
-      if (err) throw err;
-      res.status(201).json({
-        user,
-      });
-    });
-  })(req, res, next);
+  )(req, res, next);
 };

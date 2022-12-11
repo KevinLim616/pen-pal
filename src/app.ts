@@ -3,9 +3,9 @@ import Logger from "./lib/logger";
 import dotenv from "dotenv";
 import session from "express-session";
 import cookieParser from "cookie-parser";
-import passport from "./authentication/passport.middleware";
-import signUpRoute from "./authentication/signUp.routes";
-import loginRoute from "./authentication/login.routes";
+import passport from "./middlewares/passport.middleware";
+import signUpRoute from "./routes/signUp.routes";
+import loginRoute from "./routes/login.routes";
 const app: Express = express();
 dotenv.config();
 const PORT = process.env.PORT;
@@ -23,7 +23,8 @@ app.use(passport.session());
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World");
+  res.json({ sessionId: req.sessionID });
+  console.log(req.isAuthenticated());
 });
 
 app.use("/sign-up", signUpRoute);

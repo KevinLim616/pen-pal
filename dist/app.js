@@ -24,7 +24,8 @@ app.use(passport_middleware_1.default.initialize());
 app.use(passport_middleware_1.default.session());
 app.use(express_1.default.json());
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.json({ sessionId: req.sessionID });
+    console.log(req.isAuthenticated());
 });
 app.use("/sign-up", signUp_routes_1.default);
 app.use("/login", login_routes_1.default);

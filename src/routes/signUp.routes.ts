@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { signUpLogic } from "./authController";
+import { signUpLogic } from "../controller/authController";
 
 const router = express.Router();
 
