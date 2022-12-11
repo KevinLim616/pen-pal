@@ -1,0 +1,43 @@
+2022-12-11 16:03:05:35 [31merror[39m: [31m[39m
+[31mInvalid `prisma.user.create()` invocation in[39m
+[31m/Users/cheethong/Desktop/myApp/project/pen-pal/dist/controller/authController.js:19:40[39m
+
+[31m  16 }[39m
+[31m  17 try {[39m
+[31m  18     const hashedPassword = await bcryptjs_1.default.hash(password, 10);[39m
+[31m→ 19     const user = await prisma.user.create({[39m
+[31m           data: {[39m
+[31m         +   username: String,[39m
+[31m             email: 'johnny.example.com',[39m
+[31m             password: '$2a$10$KVHFr65DPimKwIUopq2dhuyr4oQUHTA/TrjEoD5n0LWu42jePxf16',[39m
+[31m         ?   id?: String,[39m
+[31m         ?   createdAt?: DateTime,[39m
+[31m         ?   updatedAt?: DateTime,[39m
+[31m         ?   languageSpoken?: UserCreatelanguageSpokenInput | String[],[39m
+[31m         ?   dateOfBirth?: DateTime | null,[39m
+[31m         ?   status?: BASIC | SUBSCRIBERS[39m
+[31m           }[39m
+[31m         })[39m
+
+[31mArgument username for data.username is missing.[39m
+
+[31mNote: Lines with + are required, lines with ? are optional.[39m
+[31m[39m
+2022-12-11 16:03:52:352 [31merror[39m: [31m[39m
+[31mInvalid `prisma.user.create()` invocation in[39m
+[31m/Users/cheethong/Desktop/myApp/project/pen-pal/dist/controller/authController.js:19:40[39m
+
+[31m  16 }[39m
+[31m  17 try {[39m
+[31m  18     const hashedPassword = await bcryptjs_1.default.hash(password, 10);[39m
+[31m→ 19     const user = await prisma.user.create([39m
+[31mUnique constraint failed on the fields: (`email`)[39m
+2022-12-11 16:09:03:93 [31merror[39m: [31m[39m
+[31mInvalid `prisma.user.create()` invocation in[39m
+[31m/Users/cheethong/Desktop/myApp/project/pen-pal/dist/controller/authController.js:19:40[39m
+
+[31m  16 }[39m
+[31m  17 try {[39m
+[31m  18     const hashedPassword = await bcryptjs_1.default.hash(password, 10);[39m
+[31m→ 19     const user = await prisma.user.create([39m
+[31mUnique constraint failed on the fields: (`email`)[39m
