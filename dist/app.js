@@ -4,16 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const logger_1 = __importDefault(require("./lib/logger"));
-const dotenv_1 = __importDefault(require("dotenv"));
 const express_session_1 = __importDefault(require("express-session"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const passport_middleware_1 = __importDefault(require("./middlewares/passport.middleware"));
 const signUp_routes_1 = __importDefault(require("./routes/signUp.routes"));
 const login_routes_1 = __importDefault(require("./routes/login.routes"));
 const app = (0, express_1.default)();
-dotenv_1.default.config();
-const PORT = process.env.PORT;
 app.use((0, express_session_1.default)({
     secret: "chibai",
     resave: false,
@@ -29,4 +25,4 @@ app.get("/", (req, res) => {
 });
 app.use("/sign-up", signUp_routes_1.default);
 app.use("/login", login_routes_1.default);
-app.listen(PORT, () => logger_1.default.debug(`server listening on http://localhost:${PORT}`));
+exports.default = app;

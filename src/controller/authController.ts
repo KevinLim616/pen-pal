@@ -1,30 +1,37 @@
 import bcrypt from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../lib/prisma";
 import { NextFunction, Request, Response } from "express";
 import Logger from "../lib/logger";
 import passport from "passport";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
-const prisma = new PrismaClient();
+import { UserModel, userSchema } from "../models/user.model";
+import { createUser } from "../services/user.service";
+import { ZodError } from "zod";
 
-export const signUpLogic = async (req: Request, res: Response, done: any) => {
+export const signUpLogic = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await prisma.user.create({
-      data: {
-        username,
-        email,
-        password: String(hashedPassword),
-      },
+    //
+    const result = userSchema.safeParse({
+      username,
+      email,
+      password: String(hashedPassword),
     });
-
-    res.json(user);
+    //
+    res.status(200).json(result);
   } catch (err) {
     if (err instanceof PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
         // status code might need to change
         res.status(401).json({ message: "email already taken" });
+      } else {
+        Logger.error(err);
       }
+    } else if (err instanceof ZodError) {
+      return { success: false, errors: err.flatten() };
+    } else {
+      throw err;
     }
   }
 };

@@ -3,13 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("@prisma/client");
+const prisma_1 = __importDefault(require("../lib/prisma"));
 const passport_1 = __importDefault(require("passport"));
 const passport_local_1 = require("passport-local");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const prisma = new client_1.PrismaClient();
 passport_1.default.use(new passport_local_1.Strategy({ usernameField: "email", passwordField: "password" }, async (email, password, done) => {
-    const user = await prisma.user.findFirst({ where: { email } });
+    const user = await prisma_1.default.user.findFirst({ where: { email } });
     if (!user) {
         return done(null, false, { message: "Incorrect email" });
     }
@@ -26,7 +25,7 @@ passport_1.default.serializeUser((user, done) => {
     done(null, user.id);
 });
 passport_1.default.deserializeUser(async (id, done) => {
-    const user = await prisma.user.findFirst({ where: { id } });
+    const user = await prisma_1.default.user.findFirst({ where: { id } });
     if (!user) {
         return done("User not found");
     }
